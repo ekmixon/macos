@@ -17,14 +17,11 @@ def kcpassword(passwd):
     # pad passwd length out to an even multiple of key length
     r = len(passwd) % key_len
     if (r > 0):
-        passwd = passwd + [0] * (key_len - r)
+        passwd += [0] * (key_len - r)
 
     for n in range(0, len(passwd), len(key)):
-        ki = 0
-        for j in range(n, min(n+len(key), len(passwd))):
+        for ki, j in enumerate(range(n, min(n+len(key), len(passwd)))):
             passwd[j] = passwd[j] ^ key[ki]
-            ki += 1
-
     passwd = [chr(x) for x in passwd]
     return "".join(passwd)
 
